@@ -71,7 +71,9 @@ class LitLanguageModel(LightningModule):
                     ids = torch.stack(ids).to(self.device)
                 else:
                     ids = torch.randint(
-                        high=self.tokenizer.vocab_size, size=(num_samples, 2)
+                        high=self.tokenizer.vocab_size,
+                        size=(num_samples, 2),
+                        device=self.device,
                     )
 
                 # Generate and log samples without parallel sampling
