@@ -94,3 +94,14 @@ BALTHASAR:
 I would your duty were told on't, and he shall:nd with the other sends
 I warrant your honour see any harm in
 ```
+
+## References
+
+```bibtex
+@article{maina2023msanii,
+  title={Msanii: High Fidelity Music Synthesis on a Shoestring Budget},
+  author={Maina, Kinyugo},
+  journal={arXiv preprint arXiv:2301.06468},
+  year={2023}
+}
+```
