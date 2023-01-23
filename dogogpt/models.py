@@ -8,7 +8,7 @@ from torch.nn import functional as F
 from torchtyping import TensorType
 from tqdm.autonotebook import trange
 
-from dogogpt.modules import Block, InstanceNorm
+from dogogpt.modules import Block
 from dogogpt.utils import eval_decorator
 
 
@@ -35,7 +35,7 @@ class Transformer(HyperparametersMixin, nn.Module):
             ]
         )
         self.head = nn.Sequential(
-            InstanceNorm(d_model),
+            nn.LayerNorm(d_model),
             nn.Linear(d_model, vocab_size),
         )
 
