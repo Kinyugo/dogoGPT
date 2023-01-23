@@ -11,6 +11,8 @@ It uses the U-Net block from Msanii, but makes a few changes:
 
 ## Samples
 
+This model has been trained on [shakespeare](https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt).
+
 **prompt**
 
 ```
