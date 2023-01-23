@@ -91,3 +91,26 @@ class TrainingConfig:
     resume_ckpt_path: Optional[str] = None
     ckpt_path: str = "checkpoints/lm.pt"
     skip_training: bool = False
+
+
+@dataclass
+class SamplingConfig:
+    ckpt_path: str = MISSING
+    output_dir: str = MISSING
+
+    seed_str: str = "\n"
+
+    num_samples: int = 16
+    batch_size: int = 4
+    device: str = "cpu"
+    dtype: str = "float32"
+
+    num_tokens: int = 512
+    context_size: int = 256
+    temperature: float = 1.0
+    top_k: Optional[int] = None
+    num_parallel_tokens: int = 1
+    verbose: bool = True
+    tag: str = ""
+
+    seed: int = 0

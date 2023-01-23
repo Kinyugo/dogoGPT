@@ -163,7 +163,7 @@ cython_debug/
 .vscode/
 
 # Pretrained checkpoints
-checkpoints/
+*checkpoints/
 
 # Data files
 data/
@@ -173,3 +173,6 @@ lightning_logs/
 
 # Private config
 conf/
+
+# Generates samples
+samples/

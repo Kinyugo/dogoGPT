@@ -29,7 +29,7 @@ class LanguageModel(nn.Module):
         context_size: int,
         temperature: float = 1.0,
         top_k: Optional[int] = None,
-        num_parallel_ids: int = 1,
+        num_parallel_tokens: int = 1,
         verbose: bool = False,
         tag: str = "",
     ) -> List[str]:
@@ -47,13 +47,13 @@ class LanguageModel(nn.Module):
             context_size=context_size,
             temperature=temperature,
             top_k=top_k,
-            num_parallel_ids=num_parallel_ids,
+            num_parallel_ids=num_parallel_tokens,
             verbose=verbose,
             tag=tag,
         )
 
         # Convert ids to tokens
-        tokens = self.tokenizer.batch_ids_to_tokens(ids)
+        tokens = self.tokenizer.batch_ids_to_tokens(ids.detach().cpu())
         tokens = ["".join(x) for x in tokens]
 
         return tokens
@@ -75,7 +75,7 @@ class LanguageModel(nn.Module):
         device: Optional[torch.device] = None,
     ) -> None:
         # Load checkpoint from disk
-        checkpoint = torch.load(ckpt_path)
+        checkpoint = torch.load(ckpt_path, map_location=device)
 
         # Load states of various models from the checkpoint
         tokenizer = Tokenizer(checkpoint["vocab"])
