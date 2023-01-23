@@ -37,6 +37,7 @@ class LitLanguageModelConfig:
     custom_seed: Optional[List[str]] = None
     num_tokens: int = 256
     temperature: float = 1.0
+    top_k: Optional[int] = None
     num_parallel_ids: int = 1
     verbose: bool = False
 

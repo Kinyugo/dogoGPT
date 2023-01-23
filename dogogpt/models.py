@@ -62,6 +62,7 @@ class Transformer(HyperparametersMixin, nn.Module):
         num_ids: int,
         context_size: int,
         temperature: float = 1.0,
+        top_k: Optional[int] = None,
         num_parallel_ids: int = 1,
         verbose: bool = False,
         tag: str = "",
@@ -76,6 +77,10 @@ class Transformer(HyperparametersMixin, nn.Module):
             logits = logits[:, -1, :]
             # Get probabilities
             logits = logits / temperature
+            # Optionally crop the logits to only the top k options
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.shape[-1]))
+                logits[logits < v[:, [-1]]] = -float("Inf")
             probs = F.softmax(logits, dim=-1)
             # Sample from the distribution
             next_ids = torch.multinomial(probs, num_samples=num_parallel_ids)

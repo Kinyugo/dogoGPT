@@ -28,6 +28,7 @@ class LanguageModel(nn.Module):
         num_tokens: int,
         context_size: int,
         temperature: float = 1.0,
+        top_k: Optional[int] = None,
         num_parallel_ids: int = 1,
         verbose: bool = False,
         tag: str = "",
@@ -41,7 +42,14 @@ class LanguageModel(nn.Module):
 
         # Generate new ids
         ids = self.transformer.generate(
-            ids, num_tokens, context_size, temperature, num_parallel_ids, verbose, tag
+            ids,
+            num_ids=num_tokens,
+            context_size=context_size,
+            temperature=temperature,
+            top_k=top_k,
+            num_parallel_ids=num_parallel_ids,
+            verbose=verbose,
+            tag=tag,
         )
 
         # Convert ids to tokens

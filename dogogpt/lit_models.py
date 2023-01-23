@@ -21,6 +21,7 @@ class LitLanguageModel(LightningModule):
         custom_seed: Optional[List[str]] = None,
         num_tokens: int = 256,
         temperature: float = 1.0,
+        top_k: Optional[int] = None,
         num_parallel_ids: int = 1,
         verbose: bool = False,
     ) -> None:
@@ -37,6 +38,7 @@ class LitLanguageModel(LightningModule):
         self.custom_seed = custom_seed
         self.num_tokens = num_tokens
         self.temperature = temperature
+        self.top_k = top_k
         self.num_parallel_ids = num_parallel_ids
         self.verbose = verbose
 
@@ -79,9 +81,10 @@ class LitLanguageModel(LightningModule):
                 # Generate and log samples without parallel sampling
                 samples = self.transformer.generate(
                     ids,
-                    self.num_tokens,
-                    inputs.shape[-1],
-                    self.temperature,
+                    num_ids=self.num_tokens,
+                    context_size=inputs.shape[-1],
+                    temperature=self.temperature,
+                    top_k=self.top_k,
                     verbose=self.verbose,
                     tag="samples",
                 )
@@ -90,10 +93,10 @@ class LitLanguageModel(LightningModule):
                 # Generate and log samples with parallel sampling
                 samples = self.transformer.generate(
                     ids,
-                    self.num_tokens,
-                    inputs.shape[-1],
-                    self.temperature,
-                    num_parallel_ids=self.num_parallel_ids,
+                    num_ids=self.num_tokens,
+                    context_size=inputs.shape[-1],
+                    temperature=self.temperature,
+                    top_k=self.top_k,
                     verbose=self.verbose,
                     tag="samples_parallel",
                 )
@@ -103,9 +106,10 @@ class LitLanguageModel(LightningModule):
                 ids = inputs[..., : inputs.shape[-1] // 2]
                 samples = self.transformer.generate(
                     ids,
-                    self.num_tokens,
-                    inputs.shape[-1],
-                    self.temperature,
+                    num_ids=self.num_tokens,
+                    context_size=inputs.shape[-1],
+                    temperature=self.temperature,
+                    top_k=self.top_k,
                     verbose=self.verbose,
                     tag="samples_seed",
                 )
