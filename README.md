@@ -1,5 +1,14 @@
 # dogoGPT
 
+A tiny GPT implementation that uses the U-Net block from **Msanii** paper.
+
+It uses the U-Net block from Msanii, but makes a few changes:
+
+1. Causal convolutions.
+2. LayerNorm instead of InstanceNorm for normalization.
+3. OG attention instead of linear-attention.
+4. Feed Forward instead of U-Net.
+
 ## Samples
 
 **prompt**
