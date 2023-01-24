@@ -18,7 +18,7 @@ class LitLanguageModel(LightningModule):
         betas: Tuple[float, float] = (0.5, 0.999),
         sample_every_n_steps: int = 1000,
         num_samples: int = 4,
-        custom_seed: Optional[List[str]] = None,
+        prompts: Optional[List[str]] = None,
         num_tokens: int = 256,
         temperature: float = 1.0,
         top_k: Optional[int] = None,
@@ -35,7 +35,7 @@ class LitLanguageModel(LightningModule):
         self.betas = betas
         self.sample_every_n_steps = sample_every_n_steps
         self.num_samples = num_samples
-        self.custom_seed = custom_seed
+        self.prompts = prompts
         self.num_tokens = num_tokens
         self.temperature = temperature
         self.top_k = top_k
@@ -68,8 +68,8 @@ class LitLanguageModel(LightningModule):
                 self._log_text(inputs[:num_samples], "ground_truth")
 
                 # Generate seed ids
-                if self.custom_seed is not None:
-                    ids = self.tokenizer.batch_tokens_to_ids(self.custom_seed)
+                if self.prompts is not None:
+                    ids = self.tokenizer.batch_tokens_to_ids(self.prompts)
                     ids = torch.stack(ids).to(self.device)
                 else:
                     ids = torch.randint(

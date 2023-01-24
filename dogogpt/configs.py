@@ -34,7 +34,7 @@ class LitLanguageModelConfig:
     betas: Tuple[float, float] = (0.5, 0.999)
     sample_every_n_steps: int = 10
     num_samples: int = 4
-    custom_seed: Optional[List[str]] = None
+    prompts: Optional[List[str]] = None
     num_tokens: int = 256
     temperature: float = 1.0
     top_k: Optional[int] = None
@@ -98,7 +98,7 @@ class SamplingConfig:
     ckpt_path: str = MISSING
     output_dir: str = MISSING
 
-    seed_str: str = "\n"
+    prompt: str = "\n"
 
     num_samples: int = 16
     batch_size: int = 4

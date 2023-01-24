@@ -45,7 +45,7 @@ def run_sampling(config: SamplingConfig) -> None:
         tqdm(batches, desc="Sampling", disable=(not config.verbose))
     ):
         with ctx:
-            tokens = [config.seed_str] * len(batch)
+            tokens = [config.prompt] * len(batch)
             tokens = language_model(
                 tokens,
                 num_tokens=config.num_tokens,
